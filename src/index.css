@@ -7,5 +7,5 @@ body {
 }
 
 .menu .active {
-  background: #8ecae670;
+  text-decoration: underline;
 }
