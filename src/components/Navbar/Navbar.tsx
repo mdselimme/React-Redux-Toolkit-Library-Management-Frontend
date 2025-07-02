@@ -1,19 +1,20 @@
 import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
+  // Navbar All Link
   const NavbarLink = () => {
     return (
       <>
-        <li className="text-base text-[#023047] font-medium py-2 px-3">
+        <li className="text-balance text-[#023047] font-medium py-2 px-3">
           <NavLink to={"/"}>Home</NavLink>
         </li>
-        <li className="text-base text-[#023047] font-medium py-2 px-3">
+        <li className="text-balance text-[#023047] font-medium py-2 px-3">
           <NavLink to={"/allbooks"}>All Books</NavLink>
         </li>
-        <li className="text-base text-[#023047] font-medium py-2 px-3">
+        <li className="text-balance text-[#023047] font-medium py-2 px-3">
           <NavLink to={"/addbook"}>Add Book</NavLink>
         </li>
-        <li className="text-base text-[#023047] font-medium py-2 px-3">
+        <li className="text-balance text-[#023047] font-medium py-2 px-3">
           <NavLink to={"/borrowsummary"}>Borrow Summary</NavLink>
         </li>
       </>
@@ -28,7 +29,7 @@ const Navbar = () => {
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

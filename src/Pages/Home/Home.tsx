@@ -1,7 +1,9 @@
+import HomeBooks from "./HomeBooks/HomeBooks";
+
 const Home = () => {
   return (
     <div>
-      <h1>I am home</h1>
+      <HomeBooks />
     </div>
   );
 };
