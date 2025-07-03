@@ -11,15 +11,6 @@ export const booksApiServices = createApi({
     tagTypes: ["books"],
 
     endpoints: (builder) => ({
-        // create a book in server 
-        createABook: builder.mutation({
-            query: (booksBody) => ({
-                url: "/books",
-                method: "POST",
-                body: booksBody
-            }),
-            invalidatesTags: ["books"]
-        }),
 
         // get all books from server 
         getAllBooks: builder.query({
@@ -33,12 +24,23 @@ export const booksApiServices = createApi({
             providesTags: ["books"]
         }),
 
+        // create a book in server 
+        createABook: builder.mutation({
+            query: (booksBody) => ({
+                url: "/books",
+                method: "POST",
+                body: booksBody
+            }),
+            invalidatesTags: ["books"]
+        }),
+
         // delete a book from server 
         deleteABook: builder.mutation({
             query: (bookId) => ({
                 url: `/books/${bookId}`,
                 method: "DELETE"
-            })
+            }),
+            invalidatesTags: ["books"]
         }),
 
         // update a book from server 
