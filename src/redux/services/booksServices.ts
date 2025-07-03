@@ -49,7 +49,8 @@ export const booksApiServices = createApi({
                 url: `/books/${bookId}`,
                 method: "PUT",
                 body: bookData
-            })
+            }),
+            invalidatesTags: ["books"]
         }),
 
     })

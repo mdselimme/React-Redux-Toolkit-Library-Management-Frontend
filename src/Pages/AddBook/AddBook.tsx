@@ -4,6 +4,7 @@ import { useCreateABookMutation } from "../../redux/services/booksServices";
 import Swal from "sweetalert2";
 
 const AddBook = () => {
+  // book initial ref
   const formRef = useRef<IBookModel>({
     title: "",
     author: "",
@@ -13,6 +14,7 @@ const AddBook = () => {
     copies: 0,
   });
 
+  // create book in database
   const [createAbook, { data, error }] = useCreateABookMutation();
 
   // success message
@@ -42,6 +44,7 @@ const AddBook = () => {
     | "description"
     | "copies";
 
+  // input value change
   const inputValueChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
@@ -56,6 +59,7 @@ const AddBook = () => {
     }
   };
 
+  // genre for select
   const genreList = [
     "FICTION",
     "NON_FICTION",
@@ -65,6 +69,7 @@ const AddBook = () => {
     "FANTASY",
   ];
 
+  // add book form event
   const handleAddBook = (e: FormEvent) => {
     e.preventDefault();
     formRef.current.available = true;
@@ -74,7 +79,7 @@ const AddBook = () => {
   return (
     <div className="w-[35rem] mx-auto shadow-2xl p-8 my-8">
       <h1 className="text-3xl font-extrabold text-center text-[#FB8500]">
-        Add Books
+        Add Book
       </h1>
       <form onSubmit={handleAddBook}>
         {/* title field  */}
