@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { booksApiServices } from "./booksServices";
 
 
 
@@ -21,6 +22,14 @@ export const borrowServiceApi = createApi({
                 method: "POST",
                 body: borrowBody
             }),
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+                try {
+                    await queryFulfilled;
+                    dispatch(booksApiServices.util.invalidateTags(["books"]))
+                } catch (error) {
+                    console.log(error)
+                }
+            },
             invalidatesTags: ["borrows"]
         }),
 

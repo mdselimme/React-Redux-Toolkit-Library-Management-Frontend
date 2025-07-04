@@ -17,6 +17,7 @@ const BorrowSummary = () => {
               <tr className="text-center">
                 <th>Book Summary No.</th>
                 <th>Title</th>
+                <th>Author</th>
                 <th>ISBN</th>
                 <th>Total Quantity</th>
               </tr>
@@ -28,6 +29,7 @@ const BorrowSummary = () => {
                     <tr key={index} className="text-center">
                       <th>{index + 1}</th>
                       <td>{borrow?.book.title}</td>
+                      <td>{borrow?.book.author}</td>
                       <td>{borrow?.book.isbn}</td>
                       <td>{borrow?.totalQuantity}</td>
                     </tr>

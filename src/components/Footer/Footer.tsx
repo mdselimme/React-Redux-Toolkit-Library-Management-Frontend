@@ -11,19 +11,19 @@ const Footer = () => {
           home
         </NavLink>
         <NavLink
-          to={"/allbooks"}
+          to={"/books"}
           className="link link-hover text-base font-medium text-[#023047]"
         >
           all books
         </NavLink>
         <NavLink
-          to={"/addbook"}
+          to={"/create-book"}
           className="link link-hover text-base font-medium text-[#023047]"
         >
           add book
         </NavLink>
         <NavLink
-          to={"/borrowsummary"}
+          to={"/borrow-summary"}
           className="link link-hover text-base font-medium text-[#023047]"
         >
           borrow summary

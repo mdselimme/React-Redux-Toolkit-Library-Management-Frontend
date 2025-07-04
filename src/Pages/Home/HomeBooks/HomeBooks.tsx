@@ -11,7 +11,7 @@ const HomeBooks = () => {
         <h1 className="text-2xl md:text-4xl font-bold mb-5">
           Book Shelf & Swap
         </h1>
-        <p className="leading-8 md:w-[550px] mx-auto">
+        <p className="leading-8 md:w-[48rem] mx-auto">
           Book Shelf & Swap offers a vibrant community space to exchange beloved
           books. Discover new reads, declutter your shelves, and connect with
           fellow bookworms. It's sustainable, social, and simply satisfying for
@@ -24,7 +24,7 @@ const HomeBooks = () => {
         ))}
       </div>
       <div className="text-center pt-8">
-        <Link to={"/allbooks"}>
+        <Link to={"/books"}>
           <button className="bg-[#023047] cursor-pointer text-white py-2.5 rounded-sm px-8">
             See All Books
           </button>

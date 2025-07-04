@@ -50,8 +50,10 @@ const AllBooks = () => {
   };
 
   return (
-    <div className="container mx-auto mb-10 mt-3 px-5 py-10 shadow-2xl">
-      <h1 className="text-center text-3xl font-bold mb-2">All books List</h1>
+    <div className="container mx-auto mb-10 mt-2 px-5 py-10 shadow-2xl">
+      <h1 className="text-2xl md:text-3xl text-center font-bold mb-5">
+        All Books List
+      </h1>
       <div className="overflow-x-auto border">
         <table className="table table-zebra">
           {/* head */}
@@ -74,11 +76,25 @@ const AllBooks = () => {
                   <td>{book?.title}</td>
                   <td>{book?.author}</td>
                   <td>{book?.isbn}</td>
-                  <td>{book?.copies}</td>
                   <td>
-                    {book?.available && book?.copies
-                      ? "Available"
-                      : "Unavailable"}
+                    {book?.copies === 0 ? (
+                      <span className="text-red-700 font-bold">0</span>
+                    ) : (
+                      <span className="text-green-700 font-bold">
+                        {book?.copies}
+                      </span>
+                    )}
+                  </td>
+                  <td>
+                    {book?.available && book?.copies ? (
+                      <span className="text-green-700 font-bold">
+                        Available
+                      </span>
+                    ) : (
+                      <span className="text-[#FB8500] font-bold">
+                        Unavailable
+                      </span>
+                    )}
                   </td>
                   <td>
                     <div className="flex gap-4">
@@ -117,9 +133,17 @@ const AllBooks = () => {
                         </svg>
                       </Link>
                       {/* borrow button  */}
-                      <button className="btn btn-primary text-[14px]">
-                        <Link to={`/borrow/${book._id}`}>Borrow Book</Link>
-                      </button>
+                      {book.available && book.copies ? (
+                        <Link to={`/borrow/${book._id}`}>
+                          <button className="btn btn-primary text-[14px]">
+                            Borrow Book
+                          </button>
+                        </Link>
+                      ) : (
+                        <span className="btn bg-[#219dbc63] cursor-default text-[14px]">
+                          Can't Borrow
+                        </span>
+                      )}
                       {/* delete button  */}
                       <button
                         title="delete"

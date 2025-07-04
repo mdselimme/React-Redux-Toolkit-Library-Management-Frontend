@@ -4,7 +4,7 @@ import type { IBookModel } from "../../tsInterface/bookInterface";
 const BookTable = ({ books }: { books: IBookModel }) => {
   return (
     <div>
-      <div className="card bg-base-100 w-96 shadow-xl">
+      <div className="card bg-base-100 w-96 border shadow-2xl">
         <div className="card-body">
           {/* book icon  */}
           <div>

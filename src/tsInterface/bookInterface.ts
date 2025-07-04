@@ -22,7 +22,8 @@ export interface IBorrowBookSummary {
     _id: string
     book: {
         title: string;
-        isbn: string
+        isbn: string,
+        author: string,
     };
     totalQuantity: number;
 }

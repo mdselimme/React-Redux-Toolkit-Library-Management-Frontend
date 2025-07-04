@@ -12,6 +12,8 @@ const BorrowBookSingle = () => {
   const [borrowBook, { data: borrowBookData, error: borrowError }] =
     useCreateABorrowMutation();
 
+  console.log(borrowError);
+
   // borrow success message
   if (borrowBookData?.success) {
     Swal.fire({
@@ -35,6 +37,14 @@ const BorrowBookSingle = () => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const copies = Number(form.borrow_copies.value);
+    if (copies <= 0) {
+      Swal.fire({
+        title: "Copies Must be Greater than 0",
+        icon: "error",
+        draggable: true,
+      });
+      return;
+    }
     const dueDate = new Date(form.due_date.value).toISOString();
     try {
       const bookBorrowData = {
@@ -112,12 +122,14 @@ const BorrowBookSingle = () => {
                 </p>
 
                 {/* available and copies  */}
-                <div className="flex justify-between items-center text-[#219EBC]">
+                <div className="flex justify-between gap-5 items-center text-[#219EBC]">
                   <p>
                     Availability:{" "}
-                    {data?.data.available && data?.data.copies
-                      ? "Available"
-                      : "Unavailable"}
+                    {data?.data.available && data?.data.copies ? (
+                      "Available"
+                    ) : (
+                      <span className="text-[#FB8500]">Unavailable</span>
+                    )}
                   </p>
                   <p>
                     Copies:{" "}
@@ -134,7 +146,7 @@ const BorrowBookSingle = () => {
           <form onSubmit={handleBorrowFormSubmit}>
             <fieldset className="fieldset mb-2">
               <legend className="fieldset-legend text-[14px] font-medium text-[#023047]">
-                How much Copy You Need
+                Borrow Quantity
               </legend>
               <input
                 type="text"
