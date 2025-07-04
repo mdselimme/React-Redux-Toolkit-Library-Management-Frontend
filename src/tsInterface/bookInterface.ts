@@ -18,6 +18,15 @@ export interface UpdateValueAction {
     };
 };
 
+export interface IBorrowBookSummary {
+    _id: string
+    book: {
+        title: string;
+        isbn: string
+    };
+    totalQuantity: number;
+}
+
 export interface ResetAction {
     type: "reset"
 }

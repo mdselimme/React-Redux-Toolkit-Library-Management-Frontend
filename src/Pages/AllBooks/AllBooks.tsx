@@ -13,8 +13,6 @@ const AllBooks = () => {
   // delete book service redux
   const [deleteABook, { data: deleteData }] = useDeleteABookMutation();
 
-  console.log(deleteData);
-
   // handle delete a book function
   const handleDeleteABook = (bookId: string) => {
     try {

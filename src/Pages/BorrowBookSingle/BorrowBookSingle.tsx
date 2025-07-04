@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useGetABookQuery } from "../../redux/services/booksServices";
 import { type FormEvent } from "react";
 import Swal from "sweetalert2";
@@ -6,7 +6,7 @@ import { useCreateABorrowMutation } from "../../redux/services/borrowServices";
 
 const BorrowBookSingle = () => {
   const { bookId } = useParams();
-
+  const navigate = useNavigate();
   const { data } = useGetABookQuery(bookId);
 
   const [borrowBook, { data: borrowBookData, error: borrowError }] =
@@ -19,6 +19,7 @@ const BorrowBookSingle = () => {
       icon: "success",
       draggable: true,
     });
+    navigate("/borrow-summary");
   }
   // error message
   if (borrowError) {
