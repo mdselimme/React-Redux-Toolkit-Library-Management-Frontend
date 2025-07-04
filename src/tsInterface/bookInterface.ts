@@ -1,7 +1,4 @@
 
-
-
-
 export interface IBookModel {
     _id?: string,
     title: string,
@@ -13,4 +10,17 @@ export interface IBookModel {
     available?: boolean
 };
 
+export interface UpdateValueAction {
+    type: "update_value";
+    payload: {
+        input: keyof IBookModel;
+        value: string
+    };
+};
 
+export interface ResetAction {
+    type: "reset"
+}
+
+
+export type Action = UpdateValueAction | ResetAction;

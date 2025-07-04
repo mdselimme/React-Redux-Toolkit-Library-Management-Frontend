@@ -1,10 +1,10 @@
 import { useParams } from "react-router";
 import {
-  useGetABookQuery,
+  useGetAllBooksQuery,
   useUpdateABookMutation,
 } from "../../redux/services/booksServices";
-import { useRef, type ChangeEvent, type FormEvent } from "react";
-import type { IBookModel } from "../../tsInterface/bookInterface";
+import { useReducer, type FormEvent } from "react";
+import type { Action, IBookModel } from "../../tsInterface/bookInterface";
 import Swal from "sweetalert2";
 
 const EditBook = () => {
@@ -12,17 +12,49 @@ const EditBook = () => {
   const { id } = useParams();
 
   // get book data by id  from database
-  const { data: bookGetData } = useGetABookQuery(id);
+  const { data: bookGetData } = useGetAllBooksQuery({});
 
   // form initial ref
-  const formRef = useRef<IBookModel>({
-    title: bookGetData?.data.title,
-    author: bookGetData?.data.author,
-    genre: bookGetData?.data.genre,
-    isbn: bookGetData?.data.isbn,
-    description: bookGetData?.data.description,
-    copies: bookGetData?.data.copies,
-  });
+  const singleBookFindById = bookGetData?.data.find(
+    (bk: IBookModel) => bk._id === id
+  );
+
+  // initial State Data
+  const initialState: IBookModel = {
+    _id: singleBookFindById?._id,
+    title: singleBookFindById?.title,
+    author: singleBookFindById?.author,
+    genre: singleBookFindById?.genre,
+    isbn: singleBookFindById?.isbn,
+    description: singleBookFindById?.description,
+    copies: singleBookFindById?.copies,
+    available: singleBookFindById?.available,
+  };
+
+  // Use Reducer Function
+  const reducer = (state: IBookModel, action: Action) => {
+    switch (action.type) {
+      case "update_value":
+        return { ...state, [action.payload.input]: action.payload.value };
+      case "reset":
+        return initialState;
+      default:
+        return state;
+    }
+  };
+
+  const [bookValue, dispatch] = useReducer(reducer, initialState);
+
+  // Input Value Change Function and dispatch function
+  const inputValueChange = (e) => {
+    dispatch({
+      type: "update_value",
+      payload: {
+        input: e.target.name,
+        value: e.target.value,
+      },
+    });
+  };
 
   // update data mutation from book services
   const [updateBook, { data, error }] = useUpdateABookMutation();
@@ -39,35 +71,11 @@ const EditBook = () => {
   // error message
   if (error) {
     Swal.fire({
-      title: error?.data?.message,
+      title: error?.data.message,
       icon: "error",
       draggable: true,
     });
   }
-
-  // type for fieldcheck error
-  type FieldName =
-    | "title"
-    | "author"
-    | "genre"
-    | "isbn"
-    | "description"
-    | "copies";
-
-  // input value change
-  const inputValueChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    const key = name as FieldName;
-    if (key === "copies") {
-      formRef.current.copies = Number(value);
-    } else if (key === "genre") {
-      formRef.current.genre = value as IBookModel["genre"];
-    } else {
-      formRef.current[key] = value;
-    }
-  };
 
   // genre list for select
   const genreList = [
@@ -80,9 +88,10 @@ const EditBook = () => {
   ];
 
   // book update event
-  const handleEditBook = (e: FormEvent) => {
-    e.preventDefault();
-    updateBook({ bookData: formRef.current, bookId: bookGetData?.data._id });
+  const handleEditBook = (e) => {
+    e.preventDefault() as FormEvent;
+    bookValue.copies = Number(bookValue.copies);
+    updateBook({ bookData: bookValue, bookId: bookValue._id });
   };
 
   return (
@@ -102,7 +111,7 @@ const EditBook = () => {
             className="input w-full"
             placeholder="Book title type here"
             onChange={inputValueChange}
-            defaultValue={formRef.current?.title}
+            defaultValue={bookValue?.title}
             required
           />
         </fieldset>
@@ -117,7 +126,7 @@ const EditBook = () => {
             className="input w-full"
             placeholder="Book author type here"
             onChange={inputValueChange}
-            defaultValue={formRef.current?.author}
+            defaultValue={bookValue?.author}
             required
           />
         </fieldset>
@@ -130,7 +139,7 @@ const EditBook = () => {
             name="genre"
             className="select w-full"
             onChange={inputValueChange}
-            defaultValue={formRef.current?.genre}
+            defaultValue={bookValue?.genre}
             required
           >
             <option disabled={true}>Pick a genre</option>
@@ -150,7 +159,7 @@ const EditBook = () => {
             className="input w-full text-green-700"
             placeholder="Book isbn number type here"
             onChange={inputValueChange}
-            defaultValue={formRef.current?.isbn}
+            defaultValue={bookValue?.isbn}
             disabled={true}
             required
           />
@@ -165,7 +174,7 @@ const EditBook = () => {
             className="textarea h-24 w-full"
             placeholder="book description"
             onChange={inputValueChange}
-            defaultValue={formRef.current?.description}
+            defaultValue={bookValue?.description}
           ></textarea>
         </fieldset>
         {/* available book copies field  */}
@@ -179,7 +188,7 @@ const EditBook = () => {
             className="input w-full"
             placeholder="Book available copies"
             onChange={inputValueChange}
-            defaultValue={formRef.current?.copies}
+            defaultValue={bookValue?.copies}
             required
           />
         </fieldset>

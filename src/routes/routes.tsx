@@ -7,6 +7,7 @@ import AddBook from "../Pages/AddBook/AddBook";
 import BorrowSummary from "../Pages/BorrowSummary/BorrowSummary";
 import BookDetails from "../components/BookDetails/BookDetails";
 import EditBook from "../Pages/EditBook/EditBook";
+import BorrowBookSingle from "../Pages/BorrowBookSingle/BorrowBookSingle";
 
 export const routes = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ export const routes = createBrowserRouter([
       {
         path: "/edit-book/:id",
         Component: EditBook,
+      },
+      {
+        path: "/borrow/:bookId",
+        Component: BorrowBookSingle,
       },
       {
         path: "/addbook",

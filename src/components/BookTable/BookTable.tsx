@@ -129,7 +129,9 @@ const BookTable = ({ books }: { books: IBookModel }) => {
               </svg>
             </Link>
             {/* borrow button  */}
-            <button className="btn btn-primary text-[14px]">Borrow Book</button>
+            <button className="btn btn-primary text-[14px]">
+              <Link to={`/borrow/${books._id}`}>Borrow Book</Link>
+            </button>
             {/* delete button  */}
             <button
               title="delete"
