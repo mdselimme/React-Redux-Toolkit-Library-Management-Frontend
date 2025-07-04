@@ -11,7 +11,7 @@ export const store = configureStore({
         [booksApiServices.reducerPath]: booksApiServices.reducer,
         [borrowServiceApi.reducerPath]: borrowServiceApi.reducer
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(booksApiServices.middleware)
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(booksApiServices.middleware).concat(borrowServiceApi.middleware)
 })
 
 

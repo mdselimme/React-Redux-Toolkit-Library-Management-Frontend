@@ -1,19 +1,64 @@
 import { useParams } from "react-router";
 import { useGetABookQuery } from "../../redux/services/booksServices";
+import { type FormEvent } from "react";
+import Swal from "sweetalert2";
+import { useCreateABorrowMutation } from "../../redux/services/borrowServices";
 
 const BorrowBookSingle = () => {
   const { bookId } = useParams();
 
   const { data } = useGetABookQuery(bookId);
 
-  const handleBorrowFormSubmit = (e) => {
+  const [borrowBook, { data: borrowBookData, error: borrowError }] =
+    useCreateABorrowMutation();
+
+  // borrow success message
+  if (borrowBookData?.success) {
+    Swal.fire({
+      title: borrowBookData.message,
+      icon: "success",
+      draggable: true,
+    });
+  }
+  // error message
+  if (borrowError) {
+    Swal.fire({
+      title: borrowError?.data.message,
+      icon: "error",
+      draggable: true,
+    });
+  }
+
+  // borrow handle form
+  const handleBorrowFormSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(e.target.borrowcopies.value, e.target.duedate.value);
+    const form = e.target as HTMLFormElement;
+    const copies = Number(form.borrow_copies.value);
+    const dueDate = new Date(form.due_date.value).toISOString();
+    try {
+      const bookBorrowData = {
+        book: bookId,
+        quantity: copies,
+        dueDate,
+      };
+      borrowBook(bookBorrowData);
+    } catch (error) {
+      if (error instanceof Error) {
+        Swal.fire({
+          title: error.message,
+          icon: "error",
+          draggable: true,
+        });
+      }
+    }
   };
 
   return (
     <div className="py-10 w-3/6 mx-auto">
-      <div className="card lg:card-side bg-base-100 shadow-lg p-4 mx-auto">
+      <h1 className="text-center text-3xl font-bold text-[#023047]">
+        Borrow A Book
+      </h1>
+      <div className="card lg:card-side bg-base-100 shadow-xl p-4 mx-auto">
         <div>
           <div>
             <div className="card bg-base-100 w-full">
@@ -70,8 +115,8 @@ const BorrowBookSingle = () => {
                   <p>
                     Availability:{" "}
                     {data?.data.available && data?.data.copies
-                      ? "In Stock"
-                      : "Not availabe"}
+                      ? "Available"
+                      : "Unavailable"}
                   </p>
                   <p>
                     Copies:{" "}
@@ -85,7 +130,6 @@ const BorrowBookSingle = () => {
           </div>
         </div>
         <div className="card-body">
-          <h2 className="card-title">Borrow Book Details</h2>
           <form onSubmit={handleBorrowFormSubmit}>
             <fieldset className="fieldset mb-2">
               <legend className="fieldset-legend text-[14px] font-medium text-[#023047]">
@@ -93,7 +137,7 @@ const BorrowBookSingle = () => {
               </legend>
               <input
                 type="text"
-                name="borrowcopies"
+                name="borrow_copies"
                 className="input w-full"
                 placeholder="How much Copy You Need type here"
                 // onChange={inputValueChange}
@@ -102,11 +146,12 @@ const BorrowBookSingle = () => {
             </fieldset>
             <fieldset className="fieldset mb-2">
               <legend className="fieldset-legend text-[14px] font-medium text-[#023047]">
-                Due Data
+                Due Date
               </legend>
               <input
-                name="duedate"
-                type="datetime-local"
+                name="due_date"
+                required
+                type="date"
                 className="input w-full"
               />
             </fieldset>

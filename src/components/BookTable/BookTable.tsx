@@ -1,35 +1,7 @@
 import { Link } from "react-router";
 import type { IBookModel } from "../../tsInterface/bookInterface";
-import { useDeleteABookMutation } from "../../redux/services/booksServices";
-import Swal from "sweetalert2";
 
 const BookTable = ({ books }: { books: IBookModel }) => {
-  const [deleteABook, { data, error }] = useDeleteABookMutation();
-
-  console.log(data, error);
-
-  // success message
-  if (data?.success) {
-    Swal.fire({
-      title: data?.message,
-      icon: "success",
-      draggable: true,
-    });
-  }
-
-  // error message
-  if (error) {
-    Swal.fire({
-      title: error?.data?.message,
-      icon: "error",
-      draggable: true,
-    });
-  }
-
-  const handleDeleteABook = (bookId: string) => {
-    deleteABook(bookId);
-  };
-
   return (
     <div>
       <div className="card bg-base-100 w-96 shadow-xl">
@@ -102,7 +74,7 @@ const BookTable = ({ books }: { books: IBookModel }) => {
               See Details
             </Link>
             {/* edit button  */}
-            <Link
+            {/* <Link
               title="edit"
               to={`/edit-book/${books._id}`}
               className="btn btn-primary text-[14px]"
@@ -127,13 +99,13 @@ const BookTable = ({ books }: { books: IBookModel }) => {
                   clip-rule="evenodd"
                 />
               </svg>
-            </Link>
+            </Link> */}
             {/* borrow button  */}
             <button className="btn btn-primary text-[14px]">
               <Link to={`/borrow/${books._id}`}>Borrow Book</Link>
             </button>
             {/* delete button  */}
-            <button
+            {/* <button
               title="delete"
               onClick={() => handleDeleteABook(books._id as string)}
               className="btn btn-primary text-[14px]"
@@ -149,7 +121,7 @@ const BookTable = ({ books }: { books: IBookModel }) => {
               >
                 <path d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
               </svg>
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
