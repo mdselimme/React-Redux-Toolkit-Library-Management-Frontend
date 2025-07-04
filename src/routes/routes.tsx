@@ -21,7 +21,7 @@ export const routes = createBrowserRouter([
         Component: Home,
       },
       {
-        path: "/allbooks",
+        path: "/books",
         Component: AllBooks,
       },
       {
@@ -37,11 +37,11 @@ export const routes = createBrowserRouter([
         Component: BorrowBookSingle,
       },
       {
-        path: "/addbook",
+        path: "/create-book",
         Component: AddBook,
       },
       {
-        path: "/borrowsummary",
+        path: "/borrow-summary",
         Component: BorrowSummary,
       },
     ],

@@ -9,13 +9,13 @@ const Navbar = () => {
           <NavLink to={"/"}>Home</NavLink>
         </li>
         <li className="text-balance text-[#023047] font-medium py-2 px-3">
-          <NavLink to={"/allbooks"}>All Books</NavLink>
+          <NavLink to={"/books"}>All Books</NavLink>
         </li>
         <li className="text-balance text-[#023047] font-medium py-2 px-3">
-          <NavLink to={"/addbook"}>Add Book</NavLink>
+          <NavLink to={"/create-book"}>Add Book</NavLink>
         </li>
         <li className="text-balance text-[#023047] font-medium py-2 px-3">
-          <NavLink to={"/borrowsummary"}>Borrow Summary</NavLink>
+          <NavLink to={"/borrow-summary"}>Borrow Summary</NavLink>
         </li>
       </>
     );
