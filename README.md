@@ -7,6 +7,7 @@
 - React Redux Toolkit For State Management,
 - Tailwind css for styling
 - Daisy Ui for Component Making
+- Add Pagination for books management
 
 ## Features of the library management book system.
 

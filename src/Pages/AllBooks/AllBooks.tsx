@@ -28,8 +28,6 @@ const AllBooks = () => {
   // delete book service redux
   const [deleteABook, { data: deleteData }] = useDeleteABookMutation();
 
-  console.log(deleteData);
-
   // success message
   if (deleteData?.success) {
     Swal.fire({
