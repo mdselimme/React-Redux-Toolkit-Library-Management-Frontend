@@ -65,11 +65,11 @@ const BorrowBookSingle = () => {
   };
 
   return (
-    <div className="py-10 w-3/6 mx-auto">
+    <div className="py-10 w-full md:w-3/6 mx-auto">
       <h1 className="text-center text-3xl font-bold text-[#023047]">
         Borrow A Book
       </h1>
-      <div className="card lg:card-side bg-base-100 shadow-xl p-4 mx-auto">
+      <div className="card lg:card-side bg-base-100 shadow-2xl p-4 mx-auto">
         <div>
           <div>
             <div className="card bg-base-100 w-full">
@@ -142,7 +142,7 @@ const BorrowBookSingle = () => {
             </div>
           </div>
         </div>
-        <div className="card-body">
+        <div className="md:w-[35rem]">
           <form onSubmit={handleBorrowFormSubmit}>
             <fieldset className="fieldset mb-2">
               <legend className="fieldset-legend text-[14px] font-medium text-[#023047]">

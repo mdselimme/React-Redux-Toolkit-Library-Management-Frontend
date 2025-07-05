@@ -6,12 +6,12 @@ import type { IBookModel } from "../../../tsInterface/bookInterface";
 const HomeBooks = () => {
   const { data } = useGetAllBooksQuery({});
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto py-10 sm:px-4">
       <div className="py-8 text-center">
         <h1 className="text-2xl md:text-4xl font-bold mb-5">
           Book Shelf & Swap
         </h1>
-        <p className="leading-8 md:w-[48rem] mx-auto">
+        <p className="leading-8 sm:w-full sm:text-[14px] md:w-[48rem] mx-auto">
           Book Shelf & Swap offers a vibrant community space to exchange beloved
           books. Discover new reads, declutter your shelves, and connect with
           fellow bookworms. It's sustainable, social, and simply satisfying for

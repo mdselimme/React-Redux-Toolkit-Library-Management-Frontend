@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import {
   useGetAllBooksQuery,
   useUpdateABookMutation,
@@ -10,6 +10,8 @@ import Swal from "sweetalert2";
 const EditBook = () => {
   // book data id
   const { id } = useParams();
+
+  const navigate = useNavigate();
 
   // get book data by id  from database
   const { data: bookGetData } = useGetAllBooksQuery({});
@@ -66,6 +68,7 @@ const EditBook = () => {
       icon: "success",
       draggable: true,
     });
+    navigate("/books");
   }
 
   // error message

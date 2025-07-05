@@ -23,7 +23,7 @@ const BorrowSummary = () => {
               </tr>
             </thead>
             <tbody>
-              {borrowBookData?.data.length !== 0 ? (
+              {borrowBookData ? (
                 borrowBookData?.data.map(
                   (borrow: IBorrowBookSummary, index: number) => (
                     <tr key={index} className="text-center">
