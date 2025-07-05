@@ -6,7 +6,7 @@ import { booksApiServices } from "./booksServices";
 export const borrowServiceApi = createApi({
     reducerPath: "borrowServiceApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:5000/api"
+        baseUrl: "https://library-management-server-s.vercel.app/api"
     }),
     tagTypes: ["borrows"],
     endpoints: (builder) => ({
