@@ -28,6 +28,17 @@ const AllBooks = () => {
   // delete book service redux
   const [deleteABook, { data: deleteData }] = useDeleteABookMutation();
 
+  console.log(deleteData);
+
+  // success message
+  if (deleteData?.success) {
+    Swal.fire({
+      title: deleteData.message,
+      icon: "success",
+      draggable: true,
+    });
+  }
+
   // handle delete a book function
   const handleDeleteABook = (bookId: string) => {
     try {
@@ -42,14 +53,6 @@ const AllBooks = () => {
       }).then((result) => {
         if (result.isConfirmed) {
           deleteABook(bookId);
-          // success message
-          if (deleteData?.success) {
-            Swal.fire({
-              title: deleteData.message,
-              icon: "success",
-              draggable: true,
-            });
-          }
         }
       });
     } catch (error) {
