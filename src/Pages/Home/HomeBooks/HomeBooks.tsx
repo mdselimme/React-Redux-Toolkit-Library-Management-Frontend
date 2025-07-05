@@ -19,9 +19,17 @@ const HomeBooks = () => {
         </p>
       </div>
       <div className="grid sm:grid-cols-1 md:grid-cols-3 items-start gap-20">
-        {data?.data.slice(0, 6).map((books: IBookModel, index: number) => (
-          <BookTable books={books} key={index} />
-        ))}
+        {data ? (
+          data?.data
+            .slice(0, 6)
+            .map((books: IBookModel, index: number) => (
+              <BookTable books={books} key={index} />
+            ))
+        ) : (
+          <h1 className="text-2xl text-center col-span-3 font-bold mb-5">
+            No books found. Internal Server Error
+          </h1>
+        )}
       </div>
       <div className="text-center pt-8">
         <Link to={"/books"}>
