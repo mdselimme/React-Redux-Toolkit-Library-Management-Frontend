@@ -7,12 +7,13 @@ import { useCreateABorrowMutation } from "../../redux/services/borrowServices";
 const BorrowBookSingle = () => {
   const { bookId } = useParams();
   const navigate = useNavigate();
+
+  // Get A Book By BookId
   const { data } = useGetABookQuery(bookId);
 
+  // Create A Borro Book
   const [borrowBook, { data: borrowBookData, error: borrowError }] =
     useCreateABorrowMutation();
-
-  console.log(borrowError);
 
   // borrow success message
   if (borrowBookData?.success) {
@@ -24,9 +25,9 @@ const BorrowBookSingle = () => {
     navigate("/borrow-summary");
   }
   // error message
-  if (borrowError) {
+  if (borrowError instanceof Error) {
     Swal.fire({
-      title: borrowError?.data.message,
+      title: borrowError?.message,
       icon: "error",
       draggable: true,
     });
@@ -69,7 +70,7 @@ const BorrowBookSingle = () => {
       <h1 className="text-center text-3xl font-bold text-[#023047]">
         Borrow A Book
       </h1>
-      <div className="card lg:card-side bg-base-100 shadow-2xl p-4 mx-auto">
+      <div className="card lg:card-side bg-base-100 shadow-2xl p-10 mx-auto">
         <div>
           <div>
             <div className="card bg-base-100 w-full">

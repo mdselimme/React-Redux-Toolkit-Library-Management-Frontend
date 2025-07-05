@@ -48,12 +48,13 @@ const EditBook = () => {
   const [bookValue, dispatch] = useReducer(reducer, initialState);
 
   // Input Value Change Function and dispatch function
-  const inputValueChange = (e) => {
+  const inputValueChange = (e: FormEvent) => {
+    const target = e.target as HTMLInputElement;
     dispatch({
       type: "update_value",
       payload: {
-        input: e.target.name,
-        value: e.target.value,
+        input: target.name as keyof IBookModel,
+        value: target.value,
       },
     });
   };
@@ -72,9 +73,9 @@ const EditBook = () => {
   }
 
   // error message
-  if (error) {
+  if (error instanceof Error) {
     Swal.fire({
-      title: error?.data.message,
+      title: error?.message,
       icon: "error",
       draggable: true,
     });
@@ -98,7 +99,7 @@ const EditBook = () => {
   };
 
   return (
-    <div className="w-[35rem] mx-auto shadow-2xl p-8 my-8">
+    <div className="w-full md:w-[35rem] mx-auto shadow-2xl p-8 my-8">
       <h1 className="text-3xl font-extrabold text-center text-[#FB8500]">
         Edit Book
       </h1>
@@ -199,7 +200,7 @@ const EditBook = () => {
           type="submit"
           className="btn bg-[#023047] text-[#FB8500] w-full"
         >
-          Add Book
+          Edit book
         </button>
       </form>
     </div>

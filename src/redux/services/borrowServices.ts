@@ -11,18 +11,20 @@ export const borrowServiceApi = createApi({
     tagTypes: ["borrows"],
     endpoints: (builder) => ({
 
+        // Get All Borrows 
         getAllBorrows: builder.query({
             query: () => "/borrow",
             providesTags: ["borrows"]
         }),
 
+        // Create A Borrow 
         createABorrow: builder.mutation({
             query: (borrowBody) => ({
                 url: '/borrow',
                 method: "POST",
                 body: borrowBody
             }),
-            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+            async onQueryStarted(_id, { dispatch, queryFulfilled }) {
                 try {
                     await queryFulfilled;
                     dispatch(booksApiServices.util.invalidateTags(["books"]))
@@ -33,6 +35,7 @@ export const borrowServiceApi = createApi({
             invalidatesTags: ["borrows"]
         }),
 
+        // Delete A Borrow 
         deleteABorrow: builder.mutation({
             query: (bookId) => ({
                 url: `/borrow/${bookId}`,

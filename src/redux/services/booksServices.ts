@@ -14,7 +14,16 @@ export const booksApiServices = createApi({
 
         // get all books from server 
         getAllBooks: builder.query({
-            query: () => "/books",
+            query: (params: { page?: number, limit?: number }) => ({
+                url: `/books`,
+                params
+            }),
+            providesTags: ["books"]
+        }),
+
+        // get all books from server 
+        getBooksCount: builder.query({
+            query: () => "/books/books-count",
             providesTags: ["books"]
         }),
 
@@ -59,6 +68,7 @@ export const booksApiServices = createApi({
 
 export const {
     useGetAllBooksQuery,
+    useGetBooksCountQuery,
     useGetABookQuery,
     useCreateABookMutation,
     useUpdateABookMutation,

@@ -31,9 +31,9 @@ const AddBook = () => {
   }
 
   // error message
-  if (error) {
+  if (error instanceof Error) {
     Swal.fire({
-      title: error?.data?.message,
+      title: error?.message,
       icon: "error",
       draggable: true,
     });
@@ -88,7 +88,7 @@ const AddBook = () => {
   };
 
   return (
-    <div className="w-[35rem] mx-auto shadow-2xl p-8 my-8">
+    <div className="w-full md:w-[35rem] mx-auto shadow-2xl p-8 my-8">
       <h1 className="text-3xl font-extrabold text-center text-[#FB8500]">
         Add Book
       </h1>
