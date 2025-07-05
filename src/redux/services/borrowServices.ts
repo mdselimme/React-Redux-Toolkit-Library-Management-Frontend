@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { booksApiServices } from "./booksServices";
+import { errorPrint } from "../../components/errorMessage/errorMessage";
 
 
 
@@ -24,12 +25,15 @@ export const borrowServiceApi = createApi({
                 method: "POST",
                 body: borrowBody
             }),
+            // query for refetch api after borrow 
             async onQueryStarted(_id, { dispatch, queryFulfilled }) {
                 try {
                     await queryFulfilled;
                     dispatch(booksApiServices.util.invalidateTags(["books"]))
                 } catch (error) {
-                    console.log(error)
+                    if (error instanceof Error) {
+                        errorPrint(error.message)
+                    }
                 }
             },
             invalidatesTags: ["borrows"]

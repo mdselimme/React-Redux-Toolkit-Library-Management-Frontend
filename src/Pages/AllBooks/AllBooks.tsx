@@ -19,7 +19,7 @@ const AllBooks = () => {
     page: currentPage,
     limit: booksPerPage,
   });
-
+  // page count
   for (let i = 0; i < numberOfPages; i++) {
     pages.push(i);
   }
@@ -42,7 +42,7 @@ const AllBooks = () => {
         if (result.isConfirmed) {
           deleteABook(bookId);
           // success message
-          if (deleteData.success) {
+          if (deleteData?.success) {
             Swal.fire({
               title: deleteData.message,
               icon: "success",

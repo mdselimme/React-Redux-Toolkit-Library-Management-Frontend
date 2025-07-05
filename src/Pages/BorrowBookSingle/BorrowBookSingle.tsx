@@ -3,6 +3,7 @@ import { useGetABookQuery } from "../../redux/services/booksServices";
 import { type FormEvent } from "react";
 import Swal from "sweetalert2";
 import { useCreateABorrowMutation } from "../../redux/services/borrowServices";
+import { errorPrint } from "../../components/errorMessage/errorMessage";
 
 const BorrowBookSingle = () => {
   const { bookId } = useParams();
@@ -12,8 +13,7 @@ const BorrowBookSingle = () => {
   const { data } = useGetABookQuery(bookId);
 
   // Create A Borro Book
-  const [borrowBook, { data: borrowBookData, error: borrowError }] =
-    useCreateABorrowMutation();
+  const [borrowBook, { data: borrowBookData }] = useCreateABorrowMutation();
 
   // borrow success message
   if (borrowBookData?.success) {
@@ -24,14 +24,6 @@ const BorrowBookSingle = () => {
     });
     navigate("/borrow-summary");
   }
-  // error message
-  if (borrowError instanceof Error) {
-    Swal.fire({
-      title: borrowError?.message,
-      icon: "error",
-      draggable: true,
-    });
-  }
 
   // borrow handle form
   const handleBorrowFormSubmit = (e: FormEvent) => {
@@ -39,11 +31,11 @@ const BorrowBookSingle = () => {
     const form = e.target as HTMLFormElement;
     const copies = Number(form.borrow_copies.value);
     if (copies <= 0) {
-      Swal.fire({
-        title: "Copies Must be Greater than 0",
-        icon: "error",
-        draggable: true,
-      });
+      errorPrint("Copies Must be Greater than 0");
+      return;
+    }
+    if (copies > data?.data.copies) {
+      errorPrint("Insufficient Book Copies");
       return;
     }
     const dueDate = new Date(form.due_date.value).toISOString();
