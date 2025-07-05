@@ -91,8 +91,8 @@ const EditBook = () => {
   ];
 
   // book update event
-  const handleEditBook = (e) => {
-    e.preventDefault() as FormEvent;
+  const handleEditBook = (e: FormEvent) => {
+    e.preventDefault();
     bookValue.copies = Number(bookValue.copies);
     updateBook({ bookData: bookValue, bookId: bookValue._id });
   };
