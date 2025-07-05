@@ -3,6 +3,7 @@ import type { IBookModel } from "../../tsInterface/bookInterface";
 import { useCreateABookMutation } from "../../redux/services/booksServices";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import { errorPrint } from "../../components/errorMessage/errorMessage";
 
 const AddBook = () => {
   const navigate = useNavigate();
@@ -56,11 +57,7 @@ const AddBook = () => {
     const key = name as FieldName;
     if (key === "copies") {
       if (Number(value) <= 0) {
-        Swal.fire({
-          title: "Copies Must be greater then 0",
-          icon: "error",
-          draggable: true,
-        });
+        errorPrint("Copies Must be Greater than 0");
       }
       formRef.current.copies = Number(value);
     } else if (key === "genre") {

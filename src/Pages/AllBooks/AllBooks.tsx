@@ -7,6 +7,7 @@ import {
 import type { IBookModel } from "../../tsInterface/bookInterface";
 import Swal from "sweetalert2";
 import { useState, type ChangeEvent } from "react";
+import { errorPrint } from "../../components/errorMessage/errorMessage";
 
 const AllBooks = () => {
   const { data: countsBook } = useGetBooksCountQuery({});
@@ -54,27 +55,26 @@ const AllBooks = () => {
     } catch (error) {
       // error message
       if (error instanceof Error) {
-        Swal.fire({
-          title: error.message,
-          icon: "error",
-          draggable: true,
-        });
+        errorPrint(error.message);
       }
     }
   };
 
+  // Items per page change
   const handleItemsPerPage = (e: ChangeEvent<HTMLSelectElement>) => {
     const val = parseInt(e.target.value);
     setCurrentPage(0);
     setBooksPerPage(val);
   };
 
+  // Previous button handle
   const handlePrevPage = () => {
     if (currentPage > 0) {
       setCurrentPage(currentPage - 1);
     }
   };
 
+  // Next button handle
   const handleNextPage = () => {
     if (currentPage < pages.length - 1) {
       setCurrentPage(currentPage + 1);
